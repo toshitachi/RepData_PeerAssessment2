@@ -4,7 +4,7 @@ Instructions
 
 ##Introduction
 
-aStorms and other severe weather events can cause both public health and economic problems for communities and municipalities. Many severe events can result in fatalities, injuries, and property damage, and preventing such outcomes to the extent possible is a key concern.
+Storms and other severe weather events can cause both public health and economic problems for communities and municipalities. Many severe events can result in fatalities, injuries, and property damage, and preventing such outcomes to the extent possible is a key concern.
 
 This project involves exploring the U.S. National Oceanic and Atmospheric Administration's (NOAA) storm database. This database tracks characteristics of major storms and weather events in the United States, including when and where they occur, as well as estimates of any fatalities, injuries, and property damage.
 
@@ -24,7 +24,7 @@ The events in the database start in the year 1950 and end in November 2011. In t
 
 ##Review criteria
 
-s1.Has either a (1) valid RPubs URL pointing to a data analysis document for this assignment been submitted; or (2) a complete PDF file presenting the data analysis been uploaded?
+1.Has either a (1) valid RPubs URL pointing to a data analysis document for this assignment been submitted; or (2) a complete PDF file presenting the data analysis been uploaded?
 
 2.Is the document written in English?
 
@@ -32,7 +32,7 @@ s1.Has either a (1) valid RPubs URL pointing to a data analysis document for thi
 
 4.Does the document have a title that briefly summarizes the data analysis?
 
-c5.Does the document have a synopsis that describes and summarizes the data analysis in less than 10 sentences?
+5.Does the document have a synopsis that describes and summarizes the data analysis in less than 10 sentences?
 
 6.Is there a section titled "Data Processing" that describes how the data were loaded into R and processed for analysis?
 
@@ -91,9 +91,9 @@ s-RStudio: You will need RStudio to publish your completed analysis document to 
 
 -You may have other sections in your analysis, but Data Processing and Results are ##required##.
 
--The analysis document must have ##at least one figure containing a plot"".
+-The analysis document must have ##at least one figure containing a plot##.
 
--Your analysis must have **no more than three figures**. Figures may have multiple plots in them (i.e. panel plots), but there cannot be more than three figures total.
+-Your analysis must have ##no more than three figures##. Figures may have multiple plots in them (i.e. panel plots), but there cannot be more than three figures total.
 
 -You must show all your code for the work in your analysis document. This may make the document a bit verbose, but that is okay. In general, you should ensure that <span style="color:red">echo = TRUE</span> for every code chunk (this is the default setting in knitr).
 
@@ -111,7 +111,7 @@ Once your document is published to RPubs, you should get a unique URL to that do
 
 ##NOTE##: If you are having trouble connecting with RPubs due to proxy-related or other issues, you can upload your final analysis document file as a PDF to Coursera instead.
 
-""Submitting Your Assignment""
+##Submitting Your Assignment##
 
 In order to submit this assignment, you must copy the RPubs URL for your completed data analysis document in to the peer assessment question.
 
