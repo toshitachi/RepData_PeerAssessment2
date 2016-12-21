@@ -16,9 +16,9 @@ The data for this assignment come in the form of a comma-separated-value file co
 
 pThere is also some documentation of the database available. Here you will find how some of the variables are constructed/defined.
 
--National Weather Service Storm Data Documentation
+-National Weather Service <span style="color:blue">Storm Data Documentation</span>
 
--National Climatic Data Center Storm Events FAQ
+-National Climatic Data Center Storm Events <span style="color:blue">FAQ</span>
 
 The events in the database start in the year 1950 and end in November 2011. In the earlier years of the database there are generally fewer events recorded, most likely due to a lack of good records. More recent years should be considered more complete.
 
@@ -80,20 +80,19 @@ s-RStudio: You will need RStudio to publish your completed analysis document to 
 
 -Language: Your document should be written in English.
 
--Title: Your document should have a title that ##briefly## summarizes your data analysis
+-Title: Your document should have a title that **briefly** summarizes your data analysis
 
--Synopsis: Immediately after the title, there should be a ##synopsis## which describes and summarizes your analysis in at ##most 10 complete sentences##.
+-Synopsis: Immediately after the title, there should be a **synopsis** which describes and summarizes your analysis in at **most 10 complete sentences**.
 
--There should be a section titled #Data Processing# which describes (in words and code) how the data were loaded into R and processed for analysis. In particular, your analysis must start from the raw CSV file containing the data. You cannot do any preprocessing outside the document. If preprocessing is time-consuming you may consider using the 
-<span style="color:red>"cache = TRUE</span> option for certain code chunks.
+-There should be a section titled **Data Processing** which describes (in words and code) how the data were loaded into R and processed for analysis. In particular, your analysis must start from the raw CSV file containing the data. You cannot do any preprocessing outside the document. If preprocessing is time-consuming you may consider using the <span style="color:red>"cache = TRUE</span> option for certain code chunks.
 
--There should be a section titled ##Results## in which your results are presented.
+-There should be a section titled **Results** in which your results are presented.
 
--You may have other sections in your analysis, but Data Processing and Results are ##required##.
+-You may have other sections in your analysis, but Data Processing and Results are **required**.
 
--The analysis document must have ##at least one figure containing a plot##.
+-The analysis document must have **at least one figure containing a plot**.
 
--Your analysis must have ##no more than three figures##. Figures may have multiple plots in them (i.e. panel plots), but there cannot be more than three figures total.
+-Your analysis must have **no more than three figures**. Figures may have multiple plots in them (i.e. panel plots), but there cannot be more than three figures total.
 
 -You must show all your code for the work in your analysis document. This may make the document a bit verbose, but that is okay. In general, you should ensure that <span style="color:red">echo = TRUE</span> for every code chunk (this is the default setting in knitr).
 
@@ -107,9 +106,9 @@ For this assignment you will need to publish your analysis on <span style="colo
 
 3.In the preview window, click the <span style="color:red">Publish</span> button.
 
-Once your document is published to RPubs, you should get a unique URL to that document. ##Make a note of this URL## as you will need it to submit your assignment.
+Once your document is published to RPubs, you should get a unique URL to that document. **Make a note of this URL** as you will need it to submit your assignment.
 
-##NOTE##: If you are having trouble connecting with RPubs due to proxy-related or other issues, you can upload your final analysis document file as a PDF to Coursera instead.
+**NOTE**: If you are having trouble connecting with RPubs due to proxy-related or other issues, you can upload your final analysis document file as a PDF to Coursera instead.
 
 ##Submitting Your Assignment##
 
