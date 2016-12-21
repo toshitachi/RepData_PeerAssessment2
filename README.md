@@ -12,11 +12,11 @@ This project involves exploring the U.S. National Oceanic and Atmospheric Admini
 
 The data for this assignment come in the form of a comma-separated-value file compressed via the bzip2 algorithm to reduce its size. You can download the file from the course web site:
 
-<span style="color:blue">Storm Data [47Mb]</span>
+<span style="color:blue>Storm Data [47Mb]</span>
 
-pThere is also some documentation of the database available. Here you will find how some of the variables are constructed/defined.
+There is also some documentation of the database available. Here you will find how some of the variables are constructed/defined.
 
--National Weather Service <span style="color:blue">Storm Data Documentation</span>
+-National Weather Service <span style="color:blue>Storm Data Documentation</span>
 
 -National Climatic Data Center Storm Events <span style="color:blue">FAQ</span>
 
