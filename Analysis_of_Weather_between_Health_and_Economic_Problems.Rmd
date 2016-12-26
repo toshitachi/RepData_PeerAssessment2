@@ -2,7 +2,8 @@
 title: "Reproduciable Research Assignment2"
 author: "Toshiyuki Tachibana"
 date: "2016-12-24"
-output: html_document
+output: md_document
+
 ---
 
 ```{r setup, include=FALSE}
