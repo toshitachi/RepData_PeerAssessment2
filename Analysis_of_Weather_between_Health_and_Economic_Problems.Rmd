@@ -1,0 +1,169 @@
+---
+title: "Reproduciable Research Assignment2"
+author: "Toshiyuki Tachibana"
+date: "2016-12-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Types of weather events causing the Health and Economic Problems in US##
+
+===================================================================================================
+
+##Synopsis##
+
+This analysis is about what type of the weather events were the most harmful to both public health and economic aspects in the United States.
+
+The base data is the U.S. National Oceanic and Atmospheric Administration's (NOAA) storm database. This database tracks characteristics of major storms and weather events in the United States, including when and where they occur, as well as estimates of any fatalities, injuries, and property damage.
+
+As the results of the analysis,tornadoes are the most harmful to public health and haricanes are the most harmful to the economy.
+
+##Basic Setting##
+```{r}
+echo = TRUE  
+library(ggplot2)
+library(plyr)
+library(reshape2)
+library(knitr)
+
+sessionInfo()
+```
+
+##Getting and Loading the Data##
+
+Down load the raw data from URL
+```{r}
+setwd("C:/Users/Tachibana/Documents/GitHub/RepData_PeerAssessment2") # Set wd
+url <- "http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+destfile <- "stormData.csv.bz2"
+download.file(url, destfile)
+```
+
+Read the data as Data Frame
+```{r}
+Data <- read.csv(bzfile("stormData.csv.bz2"), strip.white = TRUE)
+```
+
+check the loaded data
+
+```{r}
+dim(Data)
+```
+
+```{r}
+head(Data)
+```
+
+##Data Processing##
+
+The events in the database start in the year 1950 and end in November 2011. In the earlier years of the database there are generally fewer events recorded, most likely due to a lack of good records. More recent years should be considered more complete.
+
+So we would see the event numbers by the year.
+
+```{r}
+Data$year <- as.numeric(format(as.Date(Data$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y"))
+table(Data$year)
+```
+
+The table shows that the event numbers increased from 1995. So we only use the data from 1995 and after then.
+Subset data from 1995.
+
+```{r}
+Data$BGN_DATE <- as.Date(Data$BGN_DATE, format = "%m/%d/%Y")
+sData <- subset(Data, Data$BGN_DATE > as.Date("1994-12-31"))
+```
+
+##Compute economic damage amounts##
+
+The data provided one column indicating the amount and another indicating the unit: "K" for thousands,"M" for millions, or "B" for billions. I needed to combine these two columns into a single column representing the total cost dollars for each observation.
+
+```{r}
+modified_Data <- function(x){
+        x <- as.character(x)
+        ifelse (x == "B", as.numeric(1000000000),
+        ifelse(x == "M", as.numeric(1000000), 
+        ifelse(x == "K", as.numeric(1000), 0)))
+}
+sData$PROPDMGEXP <- toupper(sData$PROPDMGEXP)
+sData$PROPDMGEXP <- modified_Data(sData$PROPDMGEXP)
+```
+
+The damage amount of Property Damage is PROPDMG * PROPDMGEXP.
+
+```{r}
+sData$PROPDMGDOL <- as.numeric(sData$PROPDMG*sData$PROPDMGEXP)
+```
+
+Then we did the same for Crop damage, creating a new variable CROPDMGDOL that became the total amount of crop damage in US Dollars.
+
+```{r}
+sData$CROPDMGEXP <- toupper(sData$CROPDMGEXP)
+sData$CROPDMGEXP <- modified_Data(sData$CROPDMGEXP)
+sData$CROPDMGDOL <- as.numeric(sData$CROPDMG*sData$CROPDMGEXP)
+```
+
+Combine Property damage and Crop damage to get Total economic dammage amount. 
+```{r}
+sData$TOTALDMGDOL <- sData$CROPDMGDOL + sData$PROPDMGDOL
+```
+
+##Compute the economic loss by event type##
+
+```{r}
+prop <- aggregate(PROPDMGDOL ~ EVTYPE,sData, sum)
+crop <- aggregate(CROPDMGDOL ~ EVTYPE,sData, sum)
+total <- aggregate(TOTALDMGDOL ~ EVTYPE,sData, sum)
+
+
+```
+
+We aggregate the total damage in US Dollars by event type for property damage, crop damage and total damage. These are all combined into a new data frame. The top 10 events with the highest amount of total damage were subsetted and plotted. 
+
+```{r}
+storm_econ<- join_all(list(prop, crop, total), by = "EVTYPE")
+storm_econ <- storm_econ[order(-storm_econ$TOTALDMGDOL),][1:10,]
+storm_econ<- melt(storm_econ, id=c("EVTYPE"), measure.vars=c("PROPDMGDOL","CROPDMGDOL"))
+storm_econ$EVTYPE <- as.factor(storm_econ$EVTYPE)
+ggplot(data=storm_econ, aes(EVTYPE, value, fill =variable)) + geom_bar(stat="identity")+xlab("Storm Event") + ylab("Total Damage in US Dollars") + ggtitle("Crop and Property Damage by Storm Event")+theme(axis.title.x=element_text(vjust=-2)) +theme(plot.margin = unit(c(1,1,1,0), "cm"))+theme(axis.title.x = element_text(size=10),axis.title.y = element_text(size=10))+ theme(axis.text.x = element_text(size=4),axis.text.y = element_text(size=8,angle=90)) 
+
+```
+
+As a result,haricanes are the most harmful to the economic view point.
+
+##Compute health damage amounts##
+
+To determine which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health, We aggregate the total amount of injuries and fatalities by event type. Then we create a new variable TOTAL that combined the total amount of injuries and fatalities. The 10 events with the highest amount of total injuries and fatalities were subsetted and plotted. 
+
+```{r}
+fatalities <- aggregate(FATALITIES ~ EVTYPE,sData, sum)
+injuries <- aggregate(INJURIES ~ EVTYPE,sData, sum)
+
+storm_health <- join_all(list(fatalities, injuries), by = "EVTYPE")
+storm_health$TOTAL <- storm_health$FATALITIES + storm_health$INJURIES
+storm_health <- storm_health[order(-storm_health$TOTAL),][1:10,]
+storm_health <- melt(storm_health, id=c("EVTYPE"), measure.vars=c("FATALITIES","INJURIES"))
+storm_health$EVTYPE <- as.factor(storm_health$EVTYPE)
+ggplot(data=storm_health, aes(EVTYPE, value, fill =variable)) + geom_bar(stat="identity")+xlab("Storm Event") + ylab("Total") + ggtitle("Injuries and Fatalities by Storm Event")+theme(axis.title.x=element_text(vjust=-2)) +theme(plot.margin = unit(c(1,1,1,0), "cm"))+theme(axis.title.x = element_text(size=10),axis.title.y = element_text(size=10))+ theme(axis.text.x = element_text(size=4),axis.text.y = element_text(size=8,angle=90)) 
+```
+
+As the result of the analysis,tornades are the most harmful to public health.
+
+##Conclusion##
+
+As the analysis shows, haricanes are the most harmful event to economic view points and tornades are the most harmful event to public health.
+
+
+
+
+
+
+
+
+
+
+
+
+
